@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  backend:
+    image: 'kpb-backend'
+    container_name: 'kpd-backend'
+    build:
+      context: backend #имя папки где лежит наш докер файл
+      dockerfile: Dockerfile
+    env_file: .env
+    restart: always
+    ports:
+      - "4000:3001" #локальный 3001 доступен снаружи по 4000
+    depends_on:
+      - postgres
+  frontend:
+    image: 'kpb-frontend'
+    container_name: 'kpd-frontend'
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    env_file: .env   
+    restart: always
+    ports:
+      - '8080:3000'
+  postgres:
+    image: postgres:12.12-alpine
+    container_name: 'postgres'
+    env_file: .env         
+    restart: always
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - postgres
+
+    #порты наружу для дб в целях безрпасности не указывают 
