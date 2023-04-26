@@ -4,10 +4,16 @@ WORKDIR /app
 #аналог команды cd
 COPY package*.json ./
 # регулярное выражение, чтобы не писать 2 строки  - *
-RUN npm i
-COPY . .
+RUN npm ci
+COPY . ./
 # из текущей папки в папку app
-# RUN npm run build
+RUN npm run build \
+  && rm -rf ./src \
+  && rm -rf ./node_modules
 
-CMD ["npm", "run", "start"]
-# контейнер автоматически остановится, когда завершится указанный процесс
+FROM nginx:1.23-alpine AS production
+COPY --from=builder /app/build ./usr/share/nginx/html
+COPY /nginx/conf.d/default.conf ./etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+# daemon off; чтобы контейнер не останавливался

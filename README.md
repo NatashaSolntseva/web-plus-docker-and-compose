@@ -1,7 +1,7 @@
 # Докеризация приложения
 
-- IP адрес
+- IP адрес 158.160.58.227
 
-- [Frontend]()
+- [Frontend](https://kpd-natsol.nomoredomains.monster/)
 
-- [Backend]()
+- [Backend](https://api.kpd-natsol.nomoredomains.monster/)
