@@ -1,4 +1,4 @@
-export const URL = "https://api.kpd-natsol.nomoredomains.monster/)";
+export const URL = "https://api.kpd-natsol.nomoredomains.monster";
 //export const URL = "http://localhost:4000";
 
 export const MINIMUM_PASSWORD_LENGTH = 3;
